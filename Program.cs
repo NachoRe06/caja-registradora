@@ -48,8 +48,35 @@ do
             }
             else
             {
+                VentaFinal= totalVenta;
                 Console.WriteLine("No se aplicó ningún descuento.");
             }
+
+            const decimal DescuentoEfectivo = 0.10m;
+            const decimal RecargoTarjetaCredito = 0.15m;
+            string OpcionDePago = "";
+
+            do
+            {
+                Console.WriteLine("Seleccione el método de pago:");
+                Console.WriteLine("1 - Efectivo (10% de descuento)");
+                Console.WriteLine("2 - Tarjeta de crédito (15% de recargo)");
+                Console.WriteLine("3 - Tarjeta de débito (sin recargo ni descuento)");
+                Console.Write("Opción: ");
+                OpcionDePago = Console.ReadLine();
+                switch (OpcionDePago)
+                {
+                    case "1":
+                        VentaFinal = VentaFinal - (VentaFinal * DescuentoEfectivo);
+                        break;
+                    case "2":
+                        VentaFinal = VentaFinal + (VentaFinal * RecargoTarjetaCredito);
+                        break;
+                    case "3":
+                        VentaFinal = VentaFinal;
+                        break;
+                }
+            } while (OpcionDePago != "1" && OpcionDePago != "2" && OpcionDePago != "3") ;
 
             Console.WriteLine("=== RESUMEN DE LA VENTA ===");
             Console.WriteLine($"Total de productos: {cantidadProductos}");
