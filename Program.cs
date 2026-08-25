@@ -32,9 +32,29 @@ do
             break;
 
         case "2":
+            const decimal DescuentoGrande = 0.10m;
+            const decimal DescuentoMediano = 0.05m;
+            const decimal SinDescuento = 0;
+
+            decimal VentaFinal = 0;
+
+            if (totalVenta > 50000)
+            {
+                VentaFinal = totalVenta - (totalVenta * DescuentoGrande);   
+            }
+            else if (totalVenta > 20000)
+            {
+                VentaFinal = totalVenta - (totalVenta * DescuentoMediano);
+            }
+            else
+            {
+                Console.WriteLine("No se aplicó ningún descuento.");
+            }
+
             Console.WriteLine("=== RESUMEN DE LA VENTA ===");
             Console.WriteLine($"Total de productos: {cantidadProductos}");
             Console.WriteLine($"Total de la venta: ${totalVenta}");
+            Console.WriteLine($"Total con descuento: ${VentaFinal}");
             break;
         default:
             Console.WriteLine("Opción inválida, intente nuevamente.");
@@ -42,3 +62,4 @@ do
     }
 } while (opcion != "2");
 Console.ReadLine();
+
