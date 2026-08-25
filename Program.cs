@@ -36,21 +36,24 @@ do
             const decimal DescuentoMediano = 0.05m;
             const decimal SinDescuento = 0;
 
-            decimal VentaFinal = 0;
+            decimal ventafinal = 0;
+            decimal DescuentoAplicado = 0;
+            decimal RecargoAplicado = 0;
 
             if (totalVenta > 50000)
             {
-                VentaFinal = totalVenta - (totalVenta * DescuentoGrande);   
+               DescuentoAplicado = totalVenta * DescuentoGrande;
             }
             else if (totalVenta > 20000)
             {
-                VentaFinal = totalVenta - (totalVenta * DescuentoMediano);
+                DescuentoAplicado = totalVenta * DescuentoMediano;
             }
             else
             {
-                VentaFinal= totalVenta;
-                Console.WriteLine("No se aplicó ningún descuento.");
+                DescuentoAplicado = totalVenta * SinDescuento;
             }
+
+             ventafinal= totalVenta - DescuentoAplicado;
 
             const decimal DescuentoEfectivo = 0.10m;
             const decimal RecargoTarjetaCredito = 0.15m;
@@ -67,21 +70,37 @@ do
                 switch (OpcionDePago)
                 {
                     case "1":
-                        VentaFinal = VentaFinal - (VentaFinal * DescuentoEfectivo);
+                        decimal DescuentoEfectivoActual = ventafinal * DescuentoEfectivo;
+                        ventafinal = ventafinal - DescuentoEfectivoActual;
                         break;
                     case "2":
-                        VentaFinal = VentaFinal + (VentaFinal * RecargoTarjetaCredito);
+                        RecargoAplicado = ventafinal * RecargoTarjetaCredito;
+                        ventafinal = ventafinal + RecargoAplicado;
                         break;
                     case "3":
-                        VentaFinal = VentaFinal;
+                        ventafinal = ventafinal;
                         break;
                 }
             } while (OpcionDePago != "1" && OpcionDePago != "2" && OpcionDePago != "3") ;
 
-            Console.WriteLine("=== RESUMEN DE LA VENTA ===");
-            Console.WriteLine($"Total de productos: {cantidadProductos}");
-            Console.WriteLine($"Total de la venta: ${totalVenta}");
-            Console.WriteLine($"Total con descuento: ${VentaFinal}");
+            string lineaGuiones = "";
+            for (int i = 0; i < 30; i++)
+            {
+                lineaGuiones = lineaGuiones + "-";
+            }
+
+            Console.WriteLine();
+            Console.WriteLine(lineaGuiones);
+            Console.WriteLine($"{NombreComercio}");
+            Console.WriteLine(lineaGuiones);
+            Console.WriteLine($"Cajero: {nombreCajero}");
+            Console.WriteLine($"Productos: {cantidadProductos}");
+            Console.WriteLine($"Subtotal: {totalVenta}");
+            Console.WriteLine($"Descuento: {DescuentoAplicado}");
+            Console.WriteLine($"Recargo: {RecargoAplicado}");
+            Console.WriteLine(lineaGuiones);
+            Console.WriteLine($"TOTAL: {ventafinal}");
+            Console.WriteLine(lineaGuiones);
             break;
         default:
             Console.WriteLine("Opción inválida, intente nuevamente.");
